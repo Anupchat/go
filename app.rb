@@ -32,12 +32,14 @@ end
 
 configure do
   set :erb, :escape_html => true
+  set :bind, '0.0.0.0'
+  set :port, 80
 end
 
 # Actions
 
 get '/' do
-  @links = Link.order(:hits.desc).all
+  @links = Link.order(Sequel.desc(:hits))
   erb :index
 end
 
@@ -259,3 +261,4 @@ __END__
       <Param name="q" value="{searchTerms}"/>
     </Url>
   </OpenSearchDescription>
+
